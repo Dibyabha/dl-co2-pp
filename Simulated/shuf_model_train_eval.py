@@ -236,14 +236,10 @@ optimizer = Adam(learning_rate = 1e-3) # Taking Adam optimizer with learning rat
 # For this we used ReduceLROnPlateau which will monitor val_loss.
 learning_callback = ReduceLROnPlateau(monitor = 'val_loss', factor = 0.5, patience = 20, verbose = 1, min_delta = 5e-3, cooldown = 0, min_lr = 5e-5)
 
-# instead of Mean Absolute Error (mae) as the loss function we can also use Mean Absolute Percentage Error (mape), Mean Squared Error (mse)
+# Along with Mean Absolute Error (mae) as the loss function we have also used Mean Absolute Percentage Error (mape), Mean Squared Error (mse)
 model.compile(optimizer = optimizer, loss = 'mae')
-
-# Around 186000 trainable paramaters are there
 model.summary()
-
-# Hyper-parameters are taken from the paper and not changed
-history = model.fit(data_augmentation.flow(train_inputs, train_outputs, batch_size = 32, shuffle = True), epochs = 500, steps_per_epoch = len(train_dataset)//32,
+history = model.fit(data_augmentation.flow(train_inputs, train_outputs, batch_size = 32, shuffle = True), epochs = 500, steps_per_epoch = len(train_inputs)//32,
 validation_data = (val_inputs, val_outputs), validation_batch_size = 32, validation_steps = None, callbacks = [learning_callback, checkpoint_callback])
 
 # Model's performance on test set
@@ -253,19 +249,20 @@ print(f'Test Loss: {test_loss}')
 # To store the true emissions and predicted emissions in a .csv format.
 true_emissions = []
 predicted_emissions = []
-for inputs, targets in test_dataset:
-    inputs = np.expand_dims(inputs, axis = 0)
+for i in range(len(test_inputs)):
+    inputs = np.expand_dims(test_inputs[i], axis = 0)
     outputs = model.predict(inputs) # Predicting the output based on the model's learning.
     print("True value : ", targets)
     print("Predicted value : ", outputs)
-    true_emissions.append(targets) # Append the true emissions into true_emissions list
+    true_emissions.append(test_outputs[i]) # Append the true emissions into true_emissions list
     predicted_emissions.append(outputs) # Append the predicted emissions into predicted_emissions list
 
 # Converting into numpy arrays
-true_emissions = np.array(true_emissions) # Shape : 6289, 3
-predicted_emissions = np.array(predicted_emissions) # Shape : 6289, 1, 3
-true_emissions = true_emissions.reshape(predicted_emissions.shape) # After reshaping : 6289, 1, 3
+true_emissions = np.array(true_emissions) # Shape : 7211, 3
+predicted_emissions = np.array(predicted_emissions) # Shape : 7211, 1, 3
+true_emissions = true_emissions.reshape(predicted_emissions.shape) # After reshaping : 7211, 1, 3
 
 # Storing the true emissions and predicted emissions in a csv format. 
+# For different loss function, there will be different evaluations, so make sure to store them in the same data structure
 df = pd.DataFrame({'True Emissions': true_emissions.flatten(),'Predicted Emissions': predicted_emissions.flatten()}, index = np.arange(1, len(true_emissions) + 1))
 df.to_csv('file.csv') # change file to your own desired name
