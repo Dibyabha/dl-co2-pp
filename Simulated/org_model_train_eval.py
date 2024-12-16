@@ -222,7 +222,7 @@ optimizer = Adam(learning_rate = 1e-3) # Taking Adam optimizer with learning rat
 # For this we used ReduceLROnPlateau which will monitor val_loss.
 learning_callback = ReduceLROnPlateau(monitor = 'val_loss', factor = 0.5, patience = 20, verbose = 1, min_delta = 5e-3, cooldown = 0, min_lr = 5e-5)
 
-# instead of Mean Absolute Error (mae) as the loss function we can also use Mean Absolute Percentage Error (mape), Mean Squared Error (mse)
+# Along with Mean Absolute Error (mae) as the loss function we have also used Mean Absolute Percentage Error (mape), Mean Squared Error (mse)
 model.compile(optimizer = optimizer, loss = 'mae')
 
 # Around 186000 trainable paramaters are there
