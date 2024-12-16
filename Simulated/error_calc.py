@@ -9,6 +9,10 @@ range.
 # import necessary packages
 import pandas as pd
 
+# Average Emissions denote the average of the predicted emissions that we got after using different loss functions
+# Essentially, Average Emissions = [Predicted (loss 1) + Predicted (loss 2) + ... + Predicted (loss n)]/n, 
+# where n is the total number of loss functions used
+
 df = pd.read_csv('filepath.csv') # the filepath will be your own name that you decided while storing the results
 df['error'] = (df['True Emissions'] - df['Average Emissions']).round(3) # Error between true and predicted emissions rounded off to 3 decimal places
 df['absolute_error'] = (abs(df['error'])).round(3) # absolute error 
