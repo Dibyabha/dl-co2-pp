@@ -55,7 +55,8 @@ class CustomDataset:
             inputs = np.stack([xco2_arr, u_arr, v_arr, var_arr], axis = -1)
         else: 
             inputs = np.stack([xco2_arr, u_arr, v_arr], axis = -1) 
-        
+
+        # Standardization, instead of this min-max normaliztion can also be done
         mean = inputs.mean(axis = (0, 1), keepdims = True)
         std = inputs.std(axis = (0, 1), keepdims = True) 
         std[std==0] = 1 
@@ -229,7 +230,7 @@ model.compile(optimizer = optimizer, loss = 'mae')
 model.summary()
 
 # Hyper-parameters are taken from the paper and not changed
-history = model.fit(data_augmentation.flow(train_inputs, train_outputs, batch_size = 32, shuffle = True), epochs = 500, steps_per_epoch = len(train_dataset)//32,
+history = model.fit(data_augmentation.flow(train_inputs, train_outputs, batch_size = 32, shuffle = True), epochs = 500, steps_per_epoch = len(train_inputs)//32,
 validation_data = (val_inputs, val_outputs), validation_batch_size = 32, validation_steps = None, callbacks = [learning_callback, checkpoint_callback])
 
 # Model's performance on test set
@@ -253,5 +254,6 @@ predicted_emissions = np.array(predicted_emissions) # Shape : 6289, 1, 3
 true_emissions = true_emissions.reshape(predicted_emissions.shape) # After reshaping : 6289, 1, 3
 
 # Storing the true emissions and predicted emissions in a csv format. 
+# For different loss function, there will be different evaluations, so make sure to store them in the same data structure
 df = pd.DataFrame({'True Emissions': true_emissions.flatten(),'Predicted Emissions': predicted_emissions.flatten()}, index = np.arange(1, len(true_emissions) + 1))
 df.to_csv('file.csv') # change file to your own desired name
