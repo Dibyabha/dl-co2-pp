@@ -11,9 +11,10 @@ Steps to follow to replicate this work:
 2. Simulated -> run shuf_model_train_eval.py
 3. Simulated -> run sim_eval.py
 4. Simulated -> run error_calc.py
-5. Satellite -> run sat_eval.py
-6. Satellite -> run error_calc.py
-7. Combined -> run comb.py
-8. Combined -> run model.py
-9. Combined -> run error_calc.py
-10. Additionally, EDA -> eda.py 
+5. Satellite -> run sat_cur.py
+6. Satellite -> run sat_eval.py
+7. Satellite -> run error_calc.py
+8. Combined -> run comb.py
+9. Combined -> run model.py
+10. Combined -> run error_calc.py
+11. Additionally, EDA -> eda.py 
