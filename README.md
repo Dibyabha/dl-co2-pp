@@ -30,5 +30,17 @@ Steps to follow to replicate this work:
 10. Combined -> run error_calc.py
 11. Additionally, EDA -> eda.py 
 
+# Citation
+<pre>
+@misc{deb2025improvingpowerplantco2,
+      title={Improving Power Plant CO2 Emission Estimation with Deep Learning and Satellite/Simulated Data}, 
+      author={Dibyabha Deb and Kamal Das},
+      year={2025},
+      eprint={2502.02083},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2502.02083}, 
+}
+</pre>
 # Support
 Feel free to contact: dibyabhadeb@gmail.com
