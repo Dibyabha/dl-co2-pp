@@ -31,6 +31,7 @@ Steps to follow to replicate this work:
 11. Additionally, EDA -> eda.py 
 
 # Citation
+Please cite our paper if you use our work
 <pre>
 @misc{deb2025improvingpowerplantco2,
       title={Improving Power Plant CO2 Emission Estimation with Deep Learning and Satellite/Simulated Data}, 
