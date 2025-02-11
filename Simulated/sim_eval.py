@@ -97,7 +97,7 @@ import os
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Input, Conv2D, LeakyReLU, Dropout, BatchNormalization, MaxPool2D, Flatten, Dense, GaussianNoise, Concatenate, ConvTranspose2D, Upsampling2D
+from tensorflow.keras.layers import Input, Conv2D, LeakyReLU, Dropout, BatchNormalization, MaxPool2D, Flatten, Dense, GaussianNoise, Concatenate, Conv2DTranspose, Upsampling2D
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Model
 from tqdm import tqdm
